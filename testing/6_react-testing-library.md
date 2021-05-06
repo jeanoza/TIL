@@ -7,8 +7,8 @@ React testing library est déjà injecté dans `package.json` avec jest dans CRA
 > @testing-library/react
 >
 > @testing-library/user-event
->
-> @types/jest
+
+- @types/jest à ajouter pour afficher les functions de `Jest`.
 
 ### Snapshot test : `Profile.test.js`
 
@@ -159,7 +159,7 @@ const spanRemove = getByRole('button');
 
 \*\*S'abstenir d'utiliser `querySelector` de DOM.=> `getByTestId`
 
-### Exemple test avec HookCounter.js
+## Exemple test avec HookCounter.js
 
 > `fireEvent` : génère event avec son function
 >
@@ -202,12 +202,16 @@ describe("<HookCounter/>", () => {
 
 ```
 
-### @types/jest ne marche pas??
+### @types/jest ne montre pas les functions de jest??
 
 #### mettre ce code en jsconfig.json dans ROOT
+
+ref: https://github.com/jest-community/vscode-jest/issues/440
 
 ```
 
 { "typeAcquisition": { "include": ["jest"] } }
 
 ```
+
+#### `reférence`: https://velog.io/@velopert/react-testing-library
