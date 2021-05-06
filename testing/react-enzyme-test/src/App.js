@@ -1,11 +1,12 @@
-const { default: HookCounter } = require("./HookCounter");
-const { default: Profile } = require("./Profile");
-
+import Counter from "./Counter";
+import HookCounter from "./HookCounter";
+import Profile from "./Profile";
 function App() {
   return (
     <div className="App">
       <Profile username="jeanoza" name="kyubong" />
       <HookCounter />
+      <Counter />
     </div>
   );
 }
