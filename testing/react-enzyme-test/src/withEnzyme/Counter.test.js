@@ -1,5 +1,5 @@
 import { shallow } from "enzyme";
-import Counter from "../Counter";
+import Counter from "../counters/Counter";
 
 describe("<Counter/>", () => {
   it("matches snapshot", () => {

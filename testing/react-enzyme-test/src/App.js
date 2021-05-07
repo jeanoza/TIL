@@ -1,12 +1,9 @@
-import Counter from "./Counter";
-import HookCounter from "./HookCounter";
-import Profile from "./Profile";
+const { default: TodoForm } = require("./todoListWithTDD/TodoForm");
+
 function App() {
   return (
     <div className="App">
-      <Profile username="jeanoza" name="kyubong" />
-      <HookCounter />
-      <Counter />
+      <TodoForm />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import Profile from "../Profile";
+import Profile from "../counters/Profile";
 import { render } from "@testing-library/react";
 
 describe("<Profile/>", () => {

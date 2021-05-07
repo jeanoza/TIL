@@ -1,4 +1,4 @@
-import HookCounter from "../HookCounter";
+import HookCounter from "../counters/HookCounter";
 import { render, fireEvent } from "@testing-library/react";
 
 describe("<HookCounter/>", () => {

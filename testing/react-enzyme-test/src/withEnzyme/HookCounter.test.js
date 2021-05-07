@@ -1,5 +1,5 @@
 import { mount } from "enzyme";
-import HookCounter from "../HookCounter";
+import HookCounter from "../counters/HookCounter";
 
 describe("<Counter/>", () => {
   it("matches snapshot", () => {
