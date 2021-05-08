@@ -1,8 +1,9 @@
-import TodoApp from "./todoListWithTDD/TodoApp";
+import DelayedToggle from "./testAsync/DelayedToggle";
+
 function App() {
   return (
     <div className="App">
-      <TodoApp />
+      <DelayedToggle />
     </div>
   );
 }
