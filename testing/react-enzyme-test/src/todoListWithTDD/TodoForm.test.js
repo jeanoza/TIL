@@ -15,24 +15,15 @@ describe("<TodoForm/>", () => {
     expect(button).toBeTruthy();
   });
   it("change input", () => {
-    const { input, button } = setup();
-    fireEvent.change(input, {
-      target: {
-        value: "learn TDD",
-      },
-    });
+    const { input } = setup();
+    userEvent.type(input, "learn TDD");
     expect(input).toHaveAttribute("value", "learn TDD");
   });
   it("calls onInsert and clears input", () => {
     const onInsert = jest.fn();
     const { input, button } = setup({ onInsert });
-    fireEvent.change(input, {
-      target: {
-        value: "learn TDD",
-      },
-    });
+    userEvent.type(input, "learn TDD");
     expect(input).toHaveAttribute("value", "learn TDD");
-    //   fireEvent.click(button);
     userEvent.click(button);
     expect(onInsert).toBeCalledWith("learn TDD");
     expect(input).toHaveAttribute("value", "");

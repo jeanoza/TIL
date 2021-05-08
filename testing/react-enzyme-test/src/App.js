@@ -1,9 +1,8 @@
-const { default: TodoForm } = require("./todoListWithTDD/TodoForm");
-
+import TodoApp from "./todoListWithTDD/TodoApp";
 function App() {
   return (
     <div className="App">
-      <TodoForm />
+      <TodoApp />
     </div>
   );
 }

@@ -21,6 +21,7 @@ describe("<TodoList/>", () => {
     screen.getByText(sampleTodos[1].text);
   });
   it("calls on Toggle and onRemove", () => {
+    // create mocking function
     const onToggle = jest.fn();
     const onRemove = jest.fn();
     render(
@@ -28,8 +29,9 @@ describe("<TodoList/>", () => {
     );
     userEvent.click(screen.getByText(sampleTodos[0].text));
     expect(onToggle).toBeCalledWith(sampleTodos[0].id);
-    userEvent.click(screen.getAllByText("delete")[0]);
+
     // userEvent.click(screen.getByText("delete")); - ne marche pas parce que c'est plusieurs.
+    userEvent.click(screen.getAllByText("delete")[0]);
     expect(onRemove).toBeCalledWith(sampleTodos[0].id);
   });
 });
