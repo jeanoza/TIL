@@ -127,3 +127,95 @@ describe("<DelayedToggle/>", () => {
 });
 
 ```
+
+## Rest API test
+
+### `axios-mock-adapter`
+
+En général, on ne fait pas la requête directement au serveur.
+
+- Puisque, le serveur marche bien ou pas,ce n'est `pas l'objectif/intérêt` du test en frontend.
+
+- `L'enjeu` de ce test, c'est de vérifier si `les datas reçus s'affichent bien` dans l'écran.
+
+> C'est la raison pour laquelle il faudrait `axios-mock-adapter`
+>
+> Comme `Mocking function`, il limite comme si on reçoit des datas du serveur.
+
+    $yarn add axios-mock-adapter
+
+### Créer MockAdapter & Requête faux
+
+- Créer instance `mock`
+
+  > `const` mock = `new` MockAdapter(axios, {delayResponse?:\_\_MS\_\_ : `number`});
+
+- `onGet` : répond à `axios.get()`
+  > prototype: mock.onGet(\_\_ADDRESS\_\_:`string`).reply(\_\_STATUS\_\_ , \_\_DATA\_\_:`object`)
+
+```
+
+import UserProfile from "./UserProfile";
+import axios from "axios";
+import { render, screen, waitFor } from "@testing-library/react";
+import MockAdapter from "axios-mock-adapter";
+
+describe("<UserProfile/>", () => {
+  const mock = new MockAdapter(axios, { delayResponse: 200 }); //200ms faux delai
+  mock.onGet("https://jsonplaceholder.typicode.com/users/1").reply(200, {
+    id: 1,
+    name: "Leanne Graham",
+    username: "Bret",
+    email: "Sincere@april.biz",
+    address: {
+      street: "Kulas Light",
+      suite: "Apt. 556",
+      city: "Gwenborough",
+      zipcode: "92998-3874",
+      geo: {
+        lat: "-37.3159",
+        lng: "81.1496",
+      },
+    },
+    phone: "1-770-736-8031 x56442",
+    website: "hildegard.org",
+    company: {
+      name: "Romaguera-Crona",
+      catchPhrase: "Multi-layered client-server neural-net",
+      bs: "harness real-time e-markets",
+    },
+  });
+  it("calls getUser API loads & userData correctly", async () => {
+    render(<UserProfile id={1} />);
+    await waitFor(() => screen.getByText("Loading...")); // pass si "Loading..." s'affiche
+    await waitFor(() => screen.getByText("Bret")); // pass si Bret(username) s'affiche
+  });
+});
+
+```
+
+### D'autre méthodes en `axios-mock-adapter`
+
+- ref: https://www.npmjs.com/package/axios-mock-adapter
+
+- `.replyOnce()` : utilise mocking une seule fois puis requête de manière `ordinaire`(directement au serveur).
+
+  > mock.`onGet`('/users').replyOnce(200, users);
+
+- utilise plusieurs fois `.replyOnce()` :
+
+  > mock.onGet('/users').replyOnce(200,users).`onGet('/users').replyOnce(500)`
+
+- `.onAny()` : mocking soit `.onGet()` soit `.onPost()`
+
+- `reset` & `restore`
+
+  > mock.`reset()` : supprimer handlers inscrites à mock `Instance`
+  >
+  > - à utiliser si on veut configurer différemment mock par cas.
+  >
+  > - \*\* Peut-être, utile avec `BeforeEach() ou AfterEach()`?
+  >
+  > mock.`restore()`: supprimer complètement moking dans axios.
+
+#### Référence : https://velog.io/@velopert/react-testing-library-%EC%9D%98-%EB%B9%84%EB%8F%99%EA%B8%B0%EC%9E%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8#%EB%B9%84%EB%8F%99%EA%B8%B0%EC%A0%81%EC%9C%BC%EB%A1%9C-%EB%B0%94%EB%80%8C%EB%8A%94-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-ui-%ED%85%8C%EC%8A%A4%ED%8A%B8

@@ -1,9 +1,9 @@
-import DelayedToggle from "./testAsync/DelayedToggle";
+const { default: UserProfile } = require("./testAsync/UserProfile");
 
 function App() {
   return (
     <div className="App">
-      <DelayedToggle />
+      <UserProfile id="1" />
     </div>
   );
 }
